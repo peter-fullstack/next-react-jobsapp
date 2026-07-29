@@ -25,7 +25,8 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 3000
+EXPOSE 9229
 USER node
 
 # Run standalone server directly with node (no npm start required)
-CMD ["node", "server.js"]
+CMD ["node", "--inspect=0.0.0.0:9229", "server.js"]

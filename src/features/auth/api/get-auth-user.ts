@@ -5,6 +5,7 @@ import { apiClient } from '@/lib/api-client';
 import { AuthUser } from '../types';
 
 export const getAuthUser = (): Promise<AuthUser> => {
+  console.log('Fetching authenticated user...');
   return apiClient.get('/auth/me');
 };
 
