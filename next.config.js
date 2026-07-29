@@ -1,10 +1,9 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   output: 'standalone',
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      config.devtool = 'source-map'; // Server side
-    }
+  productionBrowserSourceMaps: true,
+  webpack: (config) => {
+    config.devtool = 'source-map'; // Server side
     return config;
   },
   reactStrictMode: true,

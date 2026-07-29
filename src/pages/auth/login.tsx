@@ -16,7 +16,7 @@ const LoginPage = () => {
       redirect || '/dashboard/jobs'
     );
 
-    //router.replace(redirect || '/dashboard/jobs');
+    router.replace(redirect || '/dashboard/jobs');
   };
 
   return (
