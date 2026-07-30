@@ -11,7 +11,7 @@ type GetJobOptions = {
 export const getJob = ({
   jobId,
 }: GetJobOptions): Promise<Job> => {
-  return apiClient.get(`/jobs/${jobId}`);
+  return apiClient.get(`/${jobId}`);
 };
 
 export const useJob = ({ jobId }: GetJobOptions) => {
