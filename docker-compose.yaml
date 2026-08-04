@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # 1. APIM Self-Hosted Gateway
+  apim-gateway:
+    image: mcr.microsoft.com/azure-api-management/gateway:2.5.0
+    container_name: apim-gateway
+    ports:
+      - "8080:8080" # HTTP Gateway Port
+      - "8081:8081" # HTTPS Gateway Port
+    environment:
+      - config.service.endpoint=jobs-app.configuration.azure-api.net
+      - config.service.auth=${APIM_GATEWAY_AUTH}
+      - neighborhood.host=apim-gateway
+      - runtime.deployment.artifact.source=Azure
+      - runtime.deployment.mechanism=docker
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/status-0123456789abcdef"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
+  # 2. React Application Container
+  # react-app:
+  #   build:
+  #     context: ./ # Path to directory containing your Dockerfile
+  #     dockerfile: Dockerfile
+  #     args:
+  #       # Pass the gateway endpoint to React during build time
+  #       # Use http://localhost:8080 for browser-side calls
+  #       - NEXT_PUBLIC_API_URL=http://localhost:8080 
+  #   container_name: react-app
+  #   ports:
+  #     - "3000:3000" # Maps local port 3000 to Next.js server port in container
+  #     - "9229:9229" # Maps local port 9229 to Next.js debug port in container
+  #   depends_on:
+  #     apim-gateway:
+  #       condition: service_healthy # Waits for APIM to pass health check before starting
+  #   networks:
+  #     - app-network
+
+networks:
+  app-network:
+    driver: bridge

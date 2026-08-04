@@ -10,6 +10,12 @@ const LoginPage = () => {
 
   const onSuccess = () => {
     const redirect = router.query.redirect as string;
+
+    console.log(
+      'Redirecting to:',
+      redirect || '/dashboard/jobs'
+    );
+
     router.replace(redirect || '/dashboard/jobs');
   };
 

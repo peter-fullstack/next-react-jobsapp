@@ -10,7 +10,19 @@ export const login = (
 ): Promise<{
   user: AuthUser;
 }> => {
+  console.log('login data:', data);
   return apiClient.post('/auth/login', data);
+};
+
+const handleLogin = async (
+  data: LoginData
+): Promise<{ user: AuthUser }> => {
+  try {
+    return apiClient.post('/auth/login', data);
+  } catch (error) {
+    console.error('Login failed', error);
+    throw error;
+  }
 };
 
 type UseLoginOptions = {
@@ -20,10 +32,14 @@ type UseLoginOptions = {
 export const useLogin = ({
   onSuccess,
 }: UseLoginOptions = {}) => {
-  const { mutate: submit, isLoading } = useMutation({
-    mutationFn: login,
+  const {
+    mutate: submit,
+    isLoading,
+    data,
+  } = useMutation({
+    mutationFn: handleLogin,
     onSuccess: ({ user }) => {
-      queryClient.setQueryData(['auth-user'], user);
+      queryClient.setQueryData(['auth-user'], data);
       onSuccess?.(user);
     },
   });

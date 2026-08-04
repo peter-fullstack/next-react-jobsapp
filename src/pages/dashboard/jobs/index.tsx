@@ -10,13 +10,18 @@ import { DashboardLayout } from '@/layouts/dashboard-layout';
 
 const DashboardJobsPage = () => {
   const user = useUser();
+
+  const organizationId = user?.data?.organizationId
+    ? user.data.organizationId
+    : '';
+
   const jobs = useJobs({
     params: {
-      organizationId: user.data?.organizationId,
+      organizationId: organizationId,
     },
   });
 
-  if (!user.data) return null;
+  if (!user) return null;
 
   return (
     <>
@@ -38,7 +43,7 @@ const DashboardJobsPage = () => {
       <JobsList
         jobs={jobs.data}
         isLoading={jobs.isLoading}
-        organizationId={user.data.organizationId}
+        organizationId={organizationId}
         type="dashboard"
       />
     </>

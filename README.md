@@ -1,10 +1,4 @@
-# React Application Architecture for Production
-
-React Application Architecture for Production , published by Packt
-
-<a href="https://www.packtpub.com/product/react-application-architecture-for-production/9781801070539"><img src="https://static.packt-cdn.com/products/9781801070539/cover/smaller" alt="React Application Architecture for Production" height="256px" align="right"></a>
-
-This is the code repository for [React Application Architecture for Production](https://www.packtpub.com/product/react-application-architecture-for-production/9781801070539), published by Packt.
+# React Application Architecture for Production - published by Packt
 
 ## Overview
 
@@ -44,7 +38,14 @@ This book covers the following exciting features:
 - this build does not use mock service worker and will need a back end to communicate with
 - use docker compose to include local instance of Api Gateway configured to an Azure APIM instance
 
-### 3. Deploy Docker application to Azure Container Apps
+### 3. Api Gateway - Azure Api Management instance run locally
+
+- establish an Api Gateway in Azure Api Manager
+- set up mock responses to match the Jobs App data
+- run a self hosted gateway in docker compose
+  https://medium.com/@vipulm124/the-self-hosted-gateway-running-azure-apim-on-your-laptop-665449aa1fa6
+
+### 4. Deploy Docker application to Azure Container Apps
 
 - implement GitHub Actions to:
   -- build test the source code,

@@ -10,8 +10,33 @@ export const apiClient = Axios.create({
   },
 });
 
+console.log('API_URL:', API_URL);
+
 apiClient.interceptors.response.use(
   (response) => {
+    const headerEntries = Object.entries(
+      response.headers
+    );
+
+    const authTokenHeader = headerEntries.find(
+      ([key]) => key.toLowerCase() === 'auth-token'
+    );
+
+    const authTokenHeaderValue = authTokenHeader
+      ? authTokenHeader[1]
+      : null;
+
+    console.log(
+      'Auth-Token header value:',
+      authTokenHeaderValue
+    );
+
+    // Update default headers for future requests
+    if (authTokenHeaderValue as string) {
+      apiClient.defaults.headers.common['auth-token'] =
+        authTokenHeaderValue as string;
+    }
+
     return response.data;
   },
   (error) => {

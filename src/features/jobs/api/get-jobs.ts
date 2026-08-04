@@ -6,14 +6,14 @@ import { Job } from '../types';
 
 type GetJobsOptions = {
   params: {
-    organizationId: string | undefined;
+    organizationId: string;
   };
 };
 
 export const getJobs = ({
   params,
 }: GetJobsOptions): Promise<Job[]> => {
-  return apiClient.get('/jobs', {
+  return apiClient.get('/all/', {
     params,
   });
 };
